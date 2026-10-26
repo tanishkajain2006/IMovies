@@ -1,6 +1,10 @@
 
+
 import { useEffect, useState } from "react";
 import "./App.css";
+
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 
 function App() {
@@ -29,7 +33,7 @@ const [bookingsError, setBookingsError] = useState("");
 const [bookingSuccess, setBookingSuccess] = useState("");
 
 useEffect(() => {
-  fetch("http://localhost:5000/api/movies")
+  fetch(`${API_URL}/api/movies`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Movies load nahi ho paayi");
@@ -68,7 +72,7 @@ const handleAuthSubmit = async (event) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/auth/${endpoint}`,
+      `${API_URL}/api/auth/${endpoint}`,
       {
         method: "POST",
         headers: {
@@ -125,7 +129,7 @@ useEffect(() => {
       });
 
       const response = await fetch(
-        `http://localhost:5000/api/bookings/booked-seats?${params}`
+        `${API_URL}/api/bookings/booked-seats?${params}`
       );
 
       const data = await response.json();
@@ -183,7 +187,7 @@ useEffect(() => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/bookings/my-bookings",
+        `${API_URL}/api/bookings/my-bookings`,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -446,7 +450,7 @@ onClick={async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/api/bookings", {
+    const response = await fetch(`${API_URL}/api/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
